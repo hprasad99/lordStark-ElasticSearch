@@ -25,9 +25,7 @@ public class UIController {
     public String home(Model model){
         List<Product> products = searchService.fetchProductNamesContaining("Hornby");
 
-        List<String> names = products.stream().flatMap(product -> {
-            return Stream.of(product.getName());
-        }).collect(Collectors.toList());
+        List<String> names = products.stream().flatMap(product -> Stream.of(product.getName())).collect(Collectors.toList());
         log.info("product names {}", names);
         model.addAttribute("names", names);
         return "search";
