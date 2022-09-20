@@ -42,7 +42,6 @@ public class ProductSearchService {
 
         List<SearchHit<Product>> searchHits =
                 productHits.getSearchHits();
-        int i=0;
         for(SearchHit<Product> searchHit: searchHits) {
             log.info("searchHit {}", searchHit);
         }
@@ -91,7 +90,7 @@ public class ProductSearchService {
     public List<IndexedObjectInformation> createProductIndexBulk(final List<Product> products){
         List<IndexQuery> queries =
                 products.stream()
-                        .map(product -> new IndexQueryBuilder().withId(product.getId().toString()).withObject(product).build())
+                        .map(product -> new IndexQueryBuilder().withId(product.getId()).withObject(product).build())
                         .collect(Collectors.toList());
         return elasticsearchOperations.bulkIndex(queries, IndexCoordinates.of(PRODUCT_INDEX));
     }
